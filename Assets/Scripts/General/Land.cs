@@ -34,8 +34,9 @@ public class Land : MonoBehaviour
 
 	#region Internals
 
-	private List<ElectricGenerator> generators;
-	//private List<GeneratorDisplay> displays;
+	private List<GeneratorInstance> generators = new List<GeneratorInstance> ();
+	//private List<GameObject> displayObjects = new List<GameObject> ();
+	//private List<GeneratorDisplay> displays = new List<GeneratorDisplay> ();
 	private int landSize;
 
 	#endregion
@@ -50,7 +51,7 @@ public class Land : MonoBehaviour
 		get { return landSize; }
 	}
 
-	public ReadOnlyCollection<ElectricGenerator> Generators {
+	public ReadOnlyCollection<GeneratorInstance> Generators {
 		get { return generators.AsReadOnly (); }
 	}
 
@@ -80,25 +81,38 @@ public class Land : MonoBehaviour
 
 	#endregion
 
+	#region Public Methods
+
+	public void Sync () // used to sync up generators and displays
+	{
+		for (int index = 0; index < landSize; index++) {
+			//displays[index].Bind (generators[index]);
+		}
+	}
+
+	#endregion
+
 	#region Private Methods
 
-	/*
-	private GeneratorDisplay createDisplay() {
-		GameObject instance = Instantiate (generatorDisplayPrefab, content.transform, false);
-		return instance.GetComponent<GeneratorDisplay> ();
-	}
-	*/
-	private void reset ()
+	private void Reset ()
 	{
 		landSize = initialLandSize;
-		generators = new List<ElectricGenerator> ();
-		//displays = new List<GeneratorDisplay>();
+		generators = new List<GeneratorInstance> ();
+		/*
+		foreach (GameObject object in displayObjects) {
+			Destroy(object);
+		}
+		displayObjects = new List<GameObject>();
+		displays = new List<GeneratorDisplay>();
+		*/
 		foreach (ElectricGenerator generator in initialGenerators) {
-			generators.Add (generator);
+			generators.Add (new GeneratorInstance (generator));
 			/* 
-			GeneratorDisplay display = createDisplay();
-			display.Bind(generator);
+			GameObject displayObject = Instantiate (generatorDisplayPrefab, content.transform, false);
+			displayObjects.Add(displayObject);
+			GeneratorDisplay display = displayObject.GetComponent<GeneratorDisplay> ();
 			displays.Add(display);
+			display.Bind(generator);
 			*/
 		}
 

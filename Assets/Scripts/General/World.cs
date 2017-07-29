@@ -97,7 +97,7 @@ public class World : MonoBehaviour
 		Assert.IsTrue (secondsPerYear > 0F, "Seconds per yer must be positive!");
 
 		// And then initialization
-		reset ();
+		Reset ();
 	}
 
 	private void Update ()
@@ -106,9 +106,9 @@ public class World : MonoBehaviour
 			elapsedTime += Time.deltaTime;
 
 			// Extrapolate our world-based values
-			population = extrapolate (initialPopulation, populationGrowthRate / 100F);
-			currentDemand = extrapolate (initialDemandPerPerson, demandGrowthRate / 100F);
-			inflationRate = extrapolate (baseInflation, inflationGrowthRate / 100F);
+			population = Extrapolate (initialPopulation, populationGrowthRate / 100F);
+			currentDemand = Extrapolate (initialDemandPerPerson, demandGrowthRate / 100F);
+			inflationRate = Extrapolate (baseInflation, inflationGrowthRate / 100F);
 		}
 	}
 
@@ -116,7 +116,7 @@ public class World : MonoBehaviour
 
 	#region Public Methods
 
-	public void reset ()
+	public void Reset ()
 	{ // just so we can start over..
 		population = initialPopulation;
 		currentDemand = initialDemandPerPerson;
@@ -132,14 +132,14 @@ public class World : MonoBehaviour
 	#region Private Methods
 
 	// this static one almost aught to be an extension method of Mathf
-	private static double extrapolate (double principal, float rate, float time)
+	private static double Extrapolate (double principal, float rate, float time)
 	{
 		return principal * Mathf.Exp (rate * time);
 	}
 
-	private double extrapolate (double principal, float rate)
+	private double Extrapolate (double principal, float rate)
 	{
-		return extrapolate (principal, rate, elapsedTime / secondsPerYear);
+		return Extrapolate (principal, rate, elapsedTime / secondsPerYear);
 	}
 
 	#endregion
