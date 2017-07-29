@@ -4,6 +4,39 @@ using UnityEngine.Assertions;
 public class World : MonoBehaviour
 {
 
+	#region Accessors
+
+	public double Population {
+		get { return population; }
+	}
+
+	public double DemandRaw { // this might not get used
+		get { return currentDemand; }
+	}
+
+	public double DemandTotal { // i.e. sum of demand applied to all persons
+		get { return population * currentDemand; }
+	}
+
+	public double InflationRate {
+		get { return inflationRate; }
+	}
+
+	public float CurrentTimeRaw { // this might not get used
+		get { return elapsedTime; }
+	}
+
+	public float CurrentTimeYears {
+		get { return elapsedTime / secondsPerYear; }
+	}
+
+	public bool Paused { // can be used to pause the world.  Useful for adding in a "pause menu" etc.
+		get { return paused; }
+		set { paused = value; }
+	}
+
+	#endregion
+
 	#region Unity Serialization
 
 	[Header ("Population")]
@@ -44,39 +77,6 @@ public class World : MonoBehaviour
 	private double inflationRate;
 	private float elapsedTime;
 	private bool paused;
-
-	#endregion
-
-	#region Accessors
-
-	public double Population {
-		get { return population; }
-	}
-
-	public double DemandRaw { // this might not get used
-		get { return currentDemand; }
-	}
-
-	public double DemandTotal { // i.e. sum of demand applied to all persons
-		get { return population * currentDemand; }
-	}
-
-	public double InflationRate {
-		get { return inflationRate; }
-	}
-
-	public float CurrentTimeRaw { // this might not get used
-		get { return elapsedTime; }
-	}
-
-	public float CurrentTimeYears {
-		get { return elapsedTime / secondsPerYear; }
-	}
-
-	public bool Paused { // can be used to pause the world.  Useful for adding in a "pause menu" etc.
-		get { return paused; }
-		set { paused = value; }
-	}
 
 	#endregion
 

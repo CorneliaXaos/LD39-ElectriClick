@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ScriptableObjects
 {
+	#region Creator Functions
 
 	[MenuItem ("Assets/Create/LD39/Electric Generator")]
 	public static void CreateElectricGenerator ()
@@ -11,7 +12,9 @@ public class ScriptableObjects
 		CreateAsset<ElectricGenerator> ("Generator.asset");
 	}
 
-	// INTERNALS
+	#endregion
+
+	#region Private Methods
 
 	// Swiped from another project because this is just so damn useful in creating
 	// a scriptable object asset file where you want it to be.  It should be fine
@@ -35,4 +38,6 @@ public class ScriptableObjects
 		}
 		return path + "/" + file;
 	}
+
+	#endregion
 }
