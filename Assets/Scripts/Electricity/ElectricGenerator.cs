@@ -34,12 +34,8 @@ public class ElectricGenerator : ScriptableObject {
 		Assert.AreNotEqual<string>(generatorName, "");
 		// we can't assert on these or unity will flip out when we initially create one of these
 		// scriptable objects.. so we just test and fire a warning
-		if (idleAnimation == null) {
-			Debug.LogWarning ("Electric Generator (" + generatorName + "): Idle Animation is null!", idleAnimation);
-		}
-		if (activeAnimation == null) {
-			Debug.LogWarning ("Electric Generator (" + generatorName + "): Active Animation is null!", activeAnimation);
-		}
+		Assert.IsNotNull (idleAnimation);
+		Assert.IsNotNull (activeAnimation);
 		Assert.IsTrue (yearAvailable >= 0F);
 
 		Assert.IsTrue (baseCost > 0F);

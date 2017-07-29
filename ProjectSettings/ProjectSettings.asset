@@ -161,7 +161,7 @@ PlayerSettings:
     serializedVersion: 2
     m_Bits: 238
   iPhoneSdkVersion: 988
-  iOSTargetOSVersionString: 
+  iOSTargetOSVersionString: 7.0
   tvOSSdkVersion: 0
   tvOSRequireExtendedGameController: 0
   tvOSTargetOSVersionString: 
@@ -587,7 +587,7 @@ PlayerSettings:
   cloudServicesEnabled:
     UNet: 1
   facebookSdkVersion: 7.9.4
-  apiCompatibilityLevel: 3
+  apiCompatibilityLevel: 2
   cloudProjectId: 8bb7d34b-6dde-4f71-8ab4-e4f5a97a0694
   projectName: LD39-ElectriClick
   organizationId: xaos-games
