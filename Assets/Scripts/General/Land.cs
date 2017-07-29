@@ -6,38 +6,9 @@ using UnityEngine.Assertions;
 public class Land : MonoBehaviour
 {
 
-	#region Unity Serializations
+	#region Constants
 
-	[Header ("Generator Configuration")]
-	[SerializeField]
-	private ElectricGenerator[] generatorArchtypes;
-	[SerializeField]
-	private ElectricGenerator[] initialGenerators;
-	[SerializeField]
-	private GameObject generatorDisplayPrefab;
-
-	[Header ("Land Configuration")]
-	[SerializeField]
-	private double baseLandCost = 10D;
-	[SerializeField]
-	private int initialLandSize = 2;
-	// i.e. if 2: total land is 4, if 3: 9, etc.
-	[SerializeField]
-	private float landCostMultiplier = 1.5F;
-	// Multiplied by level to determine land costs
-
-	[Header ("UI References")]
-	[SerializeField]
-	private GameObject content;
-
-	#endregion
-
-	#region Internals
-
-	private List<GeneratorInstance> generators = new List<GeneratorInstance> ();
-	//private List<GameObject> displayObjects = new List<GameObject> ();
-	//private List<GeneratorDisplay> displays = new List<GeneratorDisplay> ();
-	private int landSize;
+	public static readonly int LAND_DIM = 3;
 
 	#endregion
 
@@ -57,13 +28,46 @@ public class Land : MonoBehaviour
 
 	#endregion
 
+	#region Unity Serializations
+
+	[Header ("Generator Configuration")]
+	[SerializeField]
+	private ElectricGenerator[] generatorArchtypes;
+	[SerializeField]
+	private ElectricGenerator[] initialGenerators;
+	[SerializeField]
+	private GameObject generatorDisplayPrefab;
+
+	[Header ("Land Configuration")]
+	[SerializeField]
+	private double baseLandCost = 10D;
+	[SerializeField]
+	private int initialLandSize = 2;
+	[SerializeField]
+	private float landCostMultiplier = 1.5F;
+
+	[Header ("UI References")]
+	[SerializeField]
+	private GameObject content;
+
+	#endregion
+
+	#region Internals
+
+	private List<GeneratorInstance> generators = new List<GeneratorInstance> ();
+	private List<GameObject> displayObjects = new List<GameObject> ();
+	private List<GeneratorDisplay> displays = new List<GeneratorDisplay> ();
+	private int landSize;
+
+	#endregion
+
 	#region Unity Lifecycle Methods
 
 	private void Start ()
 	{
 		// Data Validation
 		Assert.IsFalse (generatorArchtypes.Length == 0, "There must be at least one generator.");
-		Assert.IsTrue (initialGenerators.Length <= initialLandSize,
+		Assert.IsTrue (initialGenerators.Length <= initialLandSize * LAND_DIM,
 			"Number of initial generators will not fit on initial land!");
 		Assert.IsNotNull (generatorDisplayPrefab, "Prefab is required!");
 
@@ -76,17 +80,30 @@ public class Land : MonoBehaviour
 
 	private void Update ()
 	{
-		
+		// We need to "Tick" the things we're managing.. Namely, all the GeneratorInstances
+		foreach (GeneratorInstance instance in generators) {
+			instance.Tick (Time.deltaTime);
+		}
 	}
 
 	#endregion
 
 	#region Public Methods
 
+	public void BuyLand ()
+	{
+		landSize++;
+		// Populate additional lands with displays
+		for (int index = 0; index < LAND_DIM; index++) {
+			generators.Add (null);
+			CreateDisplay (null);
+		}
+	}
+
 	public void Sync () // used to sync up generators and displays
 	{
-		for (int index = 0; index < landSize; index++) {
-			//displays[index].Bind (generators[index]);
+		for (int index = 0; index < landSize * LAND_DIM; index++) {
+			displays [index].Bind (generators [index]);
 		}
 	}
 
@@ -94,28 +111,36 @@ public class Land : MonoBehaviour
 
 	#region Private Methods
 
+	private void CreateDisplay (GeneratorInstance instance)
+	{
+		GameObject displayObject = Instantiate (generatorDisplayPrefab, content.transform, false);
+		displayObjects.Add (displayObject);
+		GeneratorDisplay display = displayObject.GetComponent<GeneratorDisplay> ();
+		displays.Add (display);
+		display.Bind (instance);
+	}
+
 	private void Reset ()
 	{
 		landSize = initialLandSize;
 		generators = new List<GeneratorInstance> ();
-		/*
-		foreach (GameObject object in displayObjects) {
-			Destroy(object);
+		foreach (GameObject obj in displayObjects) {
+			Destroy (obj);
 		}
-		displayObjects = new List<GameObject>();
-		displays = new List<GeneratorDisplay>();
-		*/
+		displayObjects = new List<GameObject> ();
+		displays = new List<GeneratorDisplay> ();
+		
+		int count = 0;
 		foreach (ElectricGenerator generator in initialGenerators) {
-			generators.Add (new GeneratorInstance (generator));
-			/* 
-			GameObject displayObject = Instantiate (generatorDisplayPrefab, content.transform, false);
-			displayObjects.Add(displayObject);
-			GeneratorDisplay display = displayObject.GetComponent<GeneratorDisplay> ();
-			displays.Add(display);
-			display.Bind(generator);
-			*/
+			GeneratorInstance instance = (generator != null) ? new GeneratorInstance (generator) : null;
+			generators.Add (instance);
+			CreateDisplay (instance);
+			count++;
 		}
-
+		while (count++ < landSize * LAND_DIM) {
+			generators.Add (null);
+			CreateDisplay (null);
+		}
 	}
 
 	#endregion
