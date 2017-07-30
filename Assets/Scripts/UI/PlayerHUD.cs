@@ -33,7 +33,7 @@ public class PlayerHUD : MonoBehaviour
 		demandSatisfaction.SetProgress (satisfaction);
 		reputation.SetProgress ((player.Reputation + 1F) / 2F);
 		finances.text = player.Finances.ToString ("C");
-		chargeRate.text = player.DollarsPerWattYear.ToString ("C");
+		chargeRate.text = "Charge: " + player.DollarsPerWattYear.ToString ("C");
 	}
 
 	#endregion
