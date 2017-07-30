@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 75d5a1b5af5ef4e13a7402caaa5cb7e5
-timeCreated: 1501442112
+guid: 450b778fa03c64804815cc1a1cfe4b1d
+timeCreated: 1501442048
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Water Wheel Active_0
-    21300002: Water Wheel Active_1
-    21300004: Water Wheel Active_2
-    21300006: Water Wheel Active_3
-    21300008: Water Wheel Active_4
-    21300010: Water Wheel Active_5
+    21300000: Bolt - Active_0
+    21300002: Bolt - Active_1
+    21300004: Bolt - Active_2
+    21300006: Bolt - Active_3
+    21300008: Bolt - Active_4
+    21300010: Bolt - Active_5
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -121,7 +121,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Water Wheel Active_0
+      name: Bolt - Active_0
       rect:
         serializedVersion: 2
         x: 0
@@ -135,7 +135,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Water Wheel Active_1
+      name: Bolt - Active_1
       rect:
         serializedVersion: 2
         x: 200
@@ -149,7 +149,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Water Wheel Active_2
+      name: Bolt - Active_2
       rect:
         serializedVersion: 2
         x: 400
@@ -163,7 +163,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Water Wheel Active_3
+      name: Bolt - Active_3
       rect:
         serializedVersion: 2
         x: 600
@@ -177,7 +177,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Water Wheel Active_4
+      name: Bolt - Active_4
       rect:
         serializedVersion: 2
         x: 800
@@ -191,7 +191,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Water Wheel Active_5
+      name: Bolt - Active_5
       rect:
         serializedVersion: 2
         x: 1000
