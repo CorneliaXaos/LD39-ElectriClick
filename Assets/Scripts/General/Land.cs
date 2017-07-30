@@ -132,6 +132,8 @@ public class Land : MonoBehaviour
 			generators.Add (null);
 			CreateDisplay (null);
 		}
+
+		UpdateDisplay ();
 	}
 
 	public void BuyGeneratorOnDisplay (ElectricGenerator generator, GeneratorDisplay display)

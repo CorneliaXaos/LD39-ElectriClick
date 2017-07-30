@@ -31,7 +31,7 @@ public class World : MonoBehaviour
 	}
 
 	public float CurrentTimeYears {
-		get { return elapsedTime / secondsPerYear; }
+		get { return elapsedTime / secondsPerYear + 1F; }
 	}
 
 	public bool Paused { // can be used to pause the world.  Useful for adding in a "pause menu" etc.
