@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
@@ -100,6 +101,24 @@ public class GeneratorDisplay : MonoBehaviour
 	public void Initialize (Land land)
 	{
 		this.land = land;
+	}
+
+	public void SetAvailable (ReadOnlyCollection<ElectricGenerator> generators,
+	                          bool[] availability)
+	{
+		List<Dropdown.OptionData> options = new List<Dropdown.OptionData> ();
+		for (int index = 0; index < generators.Count; index++) {
+			ElectricGenerator generator = generators [index];
+
+			string text;
+			if (availability [index]) {
+				text = generator.generatorName;
+			} else {
+				text = "* Year " + generator.yearAvailable + " *";
+			}
+			options.Add (new Dropdown.OptionData (text));
+		}
+		nameDropdown.options = options;
 	}
 
 	public void Bind (GeneratorInstance instance)

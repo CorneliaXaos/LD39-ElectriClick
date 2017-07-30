@@ -1,18 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class LandHUD : MonoBehaviour
+public class DropdownDisabler : MonoBehaviour
 {
 
 	#region Unity Serializations
 
-	[Header ("UI Components")]
 	[SerializeField]
-	private Text cost;
+	private Text text;
 
-	[Header ("Gameplay")]
 	[SerializeField]
-	private Land land;
+	private Toggle toggle;
 
 	#endregion
 
@@ -20,7 +18,7 @@ public class LandHUD : MonoBehaviour
 
 	void Update ()
 	{
-		cost.text = land.LandCost.ToString ("C");
+		toggle.interactable = !text.text.StartsWith ("*");
 	}
 
 	#endregion

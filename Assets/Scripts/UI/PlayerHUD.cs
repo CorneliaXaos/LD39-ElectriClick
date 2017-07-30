@@ -1,16 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
-public class PlayerHUD : MonoBehaviour {
+public class PlayerHUD : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-		
+	#region Unity Serializations
+
+	[Header ("UI Components")]
+	[SerializeField]
+	private StatusBar demandSatisfaction;
+
+	[SerializeField]
+	private StatusBar reputation;
+
+	[SerializeField]
+	private Text finances;
+
+	[Header ("Gameplay")]
+	[SerializeField]
+	private Player player;
+
+	#endregion
+
+	#region Unity Lifecycle Methods
+
+	void Update ()
+	{
+		float satisfaction = (float)((player.SatisfactionClamped + 1D) / 2D);
+		demandSatisfaction.SetProgress (satisfaction);
+		reputation.SetProgress ((player.Reputation + 1F) / 2F);
+		finances.text = player.Finances.ToString ("C");
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+	#endregion
 }

@@ -1,16 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
-public class WorldHUD : MonoBehaviour {
+public class WorldHUD : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-		
+	#region Unity Serializations
+
+	[Header ("UI Components")]
+	[SerializeField]
+	private Text year;
+
+	[SerializeField]
+	private Text population;
+
+	[Header ("Gameplay")]
+	[SerializeField]
+	private World world;
+
+	#endregion
+
+	#region Unity Lifecycle Methods
+
+	void Update ()
+	{
+		year.text = ((int)(world.CurrentTimeYears)) + " (Years)";
+		population.text = ((long)(world.Population)) + " (Population)";
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+	#endregion
 }

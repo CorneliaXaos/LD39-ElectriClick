@@ -19,7 +19,7 @@ public class Land : MonoBehaviour
 	}
 
 	public double LandCost {
-		get { return baseLandCost * landSize * landCostMultiplier; }
+		get { return baseLandCost * landSize * landCostMultiplier * world.InflationRate; }
 	}
 
 	public int LandSize {
@@ -75,6 +75,7 @@ public class Land : MonoBehaviour
 	private List<GameObject> displayObjects = new List<GameObject> ();
 	private List<GeneratorDisplay> displays = new List<GeneratorDisplay> ();
 	private int landSize;
+	private int lastYear;
 
 	#endregion
 
@@ -100,6 +101,13 @@ public class Land : MonoBehaviour
 		// We need to "Tick" the things we're managing.. Namely, all the GeneratorInstances
 		foreach (GeneratorInstance instance in generators) {
 			instance.Tick (Time.deltaTime);
+		}
+
+		// We'll only update things once a year rather than every frame.
+		int currentYear = (int)(world.CurrentTimeYears);
+		if (currentYear > lastYear) {
+			lastYear = currentYear;
+			UpdateDisplay ();
 		}
 	}
 
@@ -175,13 +183,7 @@ public class Land : MonoBehaviour
 			generators.Add (null);
 			CreateDisplay (null);
 		}
-	}
-
-	public void Sync () // used to sync up generators and displays
-	{
-		for (int index = 0; index < landSize * LAND_DIM; index++) {
-			displays [index].Bind (generators [index]);
-		}
+		lastYear = 0;
 	}
 
 	#endregion
@@ -195,6 +197,21 @@ public class Land : MonoBehaviour
 		GeneratorDisplay display = displayObject.GetComponent<GeneratorDisplay> ();
 		displays.Add (display);
 		display.Bind (instance);
+	}
+
+	/// <summary>
+	/// This is mainly used to tell the Display prefabs which Electric Generators are availble.
+	/// </summary>
+	private void UpdateDisplay ()
+	{
+		bool[] available = new bool[Archtypes.Count];
+		for (int index = 0; index < Archtypes.Count; index++) {
+			available [index] = world.CurrentTimeYears >= Archtypes [index].yearAvailable;
+		}
+
+		foreach (GeneratorDisplay display in displays) {
+			display.SetAvailable (Archtypes, available);
+		}
 	}
 
 	#endregion
