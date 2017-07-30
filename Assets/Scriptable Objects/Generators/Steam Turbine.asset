@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Name: Steam Turbine
   m_EditorClassIdentifier: 
   generatorName: Steam Turbine
-  idleAnimation: {fileID: 0}
-  activeAnimation: {fileID: 0}
+  controller: {fileID: 9100000, guid: 3b7861d96d059482d844c91738e7aa34, type: 2}
   yearAvailable: 75
   baseCost: 350
   upkeepCost: 75

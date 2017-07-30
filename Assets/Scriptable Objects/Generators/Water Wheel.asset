@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Name: Water Wheel
   m_EditorClassIdentifier: 
   generatorName: Water Wheel
-  idleAnimation: {fileID: 0}
-  activeAnimation: {fileID: 0}
+  controller: {fileID: 9100000, guid: c7d1202f372f54125b35c0ca06de9e0f, type: 2}
   yearAvailable: 0
   baseCost: 50
   upkeepCost: 5

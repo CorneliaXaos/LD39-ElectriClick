@@ -14,6 +14,10 @@ public class Land : MonoBehaviour
 
 	#region Accessors
 
+	public ReadOnlyCollection<ElectricGenerator> Archtypes {
+		get { return new List<ElectricGenerator> (generatorArchtypes).AsReadOnly (); }
+	}
+
 	public double LandCost {
 		get { return baseLandCost * landSize * landCostMultiplier; }
 	}
@@ -46,9 +50,22 @@ public class Land : MonoBehaviour
 	[SerializeField]
 	private float landCostMultiplier = 1.5F;
 
+	[Header ("Finances")]
+	[SerializeField]
+	/// <summary>
+	/// The sell-back rate for generators in percent.
+	/// </summary>
+	private float generatorSellRate = 65F;
+
 	[Header ("UI References")]
 	[SerializeField]
 	private GameObject content;
+
+	[Header ("Other Game Components")]
+	[SerializeField]
+	private World world;
+	[SerializeField]
+	private Player player;
 
 	#endregion
 
@@ -98,6 +115,43 @@ public class Land : MonoBehaviour
 			generators.Add (null);
 			CreateDisplay (null);
 		}
+	}
+
+	public void BuyGeneratorOnDisplay (ElectricGenerator generator, GeneratorDisplay display)
+	{
+		for (int index = 0; index < displays.Count; index++) {
+			if (displays [index] == display) {
+				// First calculate cost of purchasing specific engine
+				double cost = generator.baseCost * world.InflationRate;
+
+				if (player.MakePurchase (cost)) {
+					generators [index] = new GeneratorInstance (generator);
+					display.Bind (generators [index]);
+				}
+				return;
+			}
+		}
+
+		Debug.LogWarning ("Attempted to buy generator for bad display.", display);
+	}
+
+	public void SellGeneratorOnDisplay (GeneratorDisplay display)
+	{
+		for (int index = 0; index < displays.Count; index++) {
+			if (displays [index] == display) {
+				GeneratorInstance instance = generators [index];
+				Assert.IsNotNull (instance, "Attempted to sell null generator!");
+
+				double credit = instance.Archtype.baseCost * world.InflationRate *
+				                generatorSellRate / 100F;
+				player.Credit (credit);
+				generators [index] = null;
+				display.Bind (null);
+				return;
+			}
+		}
+
+		Debug.LogWarning ("Attempted to sell generator for bad display.", display);
 	}
 
 	public void Reset ()

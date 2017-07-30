@@ -133,6 +133,11 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	public void Credit (double credit)
+	{
+		finances += credit;
+	}
+
 	public void Reset ()
 	{
 		dollarsPerWattYear = initialDollarsPerWattYear;

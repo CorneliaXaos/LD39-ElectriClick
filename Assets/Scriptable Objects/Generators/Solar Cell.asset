@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Name: Solar Cell
   m_EditorClassIdentifier: 
   generatorName: Solar Cell
-  idleAnimation: {fileID: 0}
-  activeAnimation: {fileID: 0}
+  controller: {fileID: 9100000, guid: 3b7861d96d059482d844c91738e7aa34, type: 2}
   yearAvailable: 125
   baseCost: 500
   upkeepCost: 25
