@@ -208,7 +208,7 @@ public class Land : MonoBehaviour
 		GeneratorDisplay display = displayObject.GetComponent<GeneratorDisplay> ();
 		displays.Add (display);
 		display.Bind (instance);
-		display.Initialize (this);
+		display.Initialize (this, world);
 	}
 
 	/// <summary>

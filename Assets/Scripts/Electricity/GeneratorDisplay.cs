@@ -61,6 +61,7 @@ public class GeneratorDisplay : MonoBehaviour
 	#region Internals
 
 	private Land land;
+	private World world;
 	private GeneratorInstance instance;
 
 	#endregion
@@ -98,9 +99,10 @@ public class GeneratorDisplay : MonoBehaviour
 	/// Sets up some callback things.
 	/// </summary>
 	/// <param name="land">Land.</param>
-	public void Initialize (Land land)
+	public void Initialize (Land land, World world)
 	{
 		this.land = land;
+		this.world = world;
 	}
 
 	public void SetAvailable (ReadOnlyCollection<ElectricGenerator> generators,
@@ -119,6 +121,7 @@ public class GeneratorDisplay : MonoBehaviour
 			options.Add (new Dropdown.OptionData (text));
 		}
 		nameDropdown.options = options;
+		ItemChanged (nameDropdown.value);
 	}
 
 	public void Bind (GeneratorInstance instance)
@@ -149,6 +152,23 @@ public class GeneratorDisplay : MonoBehaviour
 		if (!instance.Archtype.continuous) {
 			instance.AddRuntime (instance.Archtype.runtimePerClick);
 		}
+	}
+
+	public void ItemChanged (int index)
+	{
+		ElectricGenerator generator = land.Archtypes [index];
+		purchaseText.text = "Purchase: " +
+		(generator.baseCost * world.InflationRate).ToString ("C");
+		upkeepText.text = "Upkeep: " +
+		(generator.upkeepCost * world.InflationRate).ToString ("C");
+		string operational = "Operational: ";
+		if (generator.continuous) {
+			operational += 0D.ToString ("C");
+		} else {
+			operational += generator.operationalCost.ToString ("C");
+		}
+		operationalText.text = operational;
+		previewRenderer.runtimeAnimatorController = generator.controller;
 	}
 
 	#endregion

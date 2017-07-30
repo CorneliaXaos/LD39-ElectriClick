@@ -227,7 +227,7 @@ public class Player : MonoBehaviour
 		// we should only consider population met by reputation, as the number of customers
 		// is directly related to reputation.
 		float populationModifier = ((reputation + 1F) / 2F);
-		double diff = CalculateSupply () - CalculateDemand () * populationModifier;
+		double diff = CalculateSupply () - CalculateDemand ();
 		if (diff > 0D) {
 			delta += reputationDelta;
 		} else if (diff < 0D) {
