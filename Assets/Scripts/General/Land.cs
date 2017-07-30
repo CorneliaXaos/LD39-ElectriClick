@@ -100,6 +100,29 @@ public class Land : MonoBehaviour
 		}
 	}
 
+	public void Reset ()
+	{
+		landSize = initialLandSize;
+		generators = new List<GeneratorInstance> ();
+		foreach (GameObject obj in displayObjects) {
+			Destroy (obj);
+		}
+		displayObjects = new List<GameObject> ();
+		displays = new List<GeneratorDisplay> ();
+
+		int count = 0;
+		foreach (ElectricGenerator generator in initialGenerators) {
+			GeneratorInstance instance = (generator != null) ? new GeneratorInstance (generator) : null;
+			generators.Add (instance);
+			CreateDisplay (instance);
+			count++;
+		}
+		while (count++ < landSize * LAND_DIM) {
+			generators.Add (null);
+			CreateDisplay (null);
+		}
+	}
+
 	public void Sync () // used to sync up generators and displays
 	{
 		for (int index = 0; index < landSize * LAND_DIM; index++) {
@@ -118,29 +141,6 @@ public class Land : MonoBehaviour
 		GeneratorDisplay display = displayObject.GetComponent<GeneratorDisplay> ();
 		displays.Add (display);
 		display.Bind (instance);
-	}
-
-	private void Reset ()
-	{
-		landSize = initialLandSize;
-		generators = new List<GeneratorInstance> ();
-		foreach (GameObject obj in displayObjects) {
-			Destroy (obj);
-		}
-		displayObjects = new List<GameObject> ();
-		displays = new List<GeneratorDisplay> ();
-		
-		int count = 0;
-		foreach (ElectricGenerator generator in initialGenerators) {
-			GeneratorInstance instance = (generator != null) ? new GeneratorInstance (generator) : null;
-			generators.Add (instance);
-			CreateDisplay (instance);
-			count++;
-		}
-		while (count++ < landSize * LAND_DIM) {
-			generators.Add (null);
-			CreateDisplay (null);
-		}
 	}
 
 	#endregion

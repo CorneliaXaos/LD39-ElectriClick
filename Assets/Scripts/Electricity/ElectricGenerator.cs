@@ -11,28 +11,40 @@ public class ElectricGenerator : ScriptableObject
 	public string generatorName = "Electric Generator";
 	public Animation idleAnimation;
 	public Animation activeAnimation;
+	/// <summary>
+	/// The year available.  Available immeidately if 0.
+	/// </summary>
 	public float yearAvailable = 0F;
-	// available immediately if 0
 
 	[Header ("Economics")]
 	public float baseCost = 10F;
-	// in digital dollars
+	/// <summary>
+	/// Cost per year.
+	/// </summary>
 	public float upkeepCost = 1F;
-	// cost per year
+	/// <summary>
+	/// Cost per click.
+	/// </summary>
 	public float operationalCost = 0.25F;
-	// cost per click
-	public float initialDollarsPerWattYear = 25F;
-	// i.e.  $$$ / (W / year)
 
 	[Header ("Energy")]
+	/// <summary>
+	/// The watts per year.
+	/// i.e. how much energy does this produce per year
+	/// </summary>
 	public float wattsPerYear = 2F;
-	// i.e. how much energy does this produce per year
+	/// <summary>
+	/// Will this run without needing to be clicked?
+	/// </summary>
 	public bool continuous = false;
-	// Will this run without needing to be clicked?
+	/// <summary>
+	/// How many seconds of runtime to queue up per click.
+	/// </summary>
 	public float runtimePerClick = 1F;
-	// how many seconds to queue up per click
+	/// <summary>
+	/// Maximum queued runtime.
+	/// </summary>
 	public float maxRuntime = 30F;
-	// maximum queued runtime
 
 	#endregion
 
@@ -50,7 +62,6 @@ public class ElectricGenerator : ScriptableObject
 		Assert.IsTrue (baseCost > 0F, "Cost must be greater than zero!");
 		Assert.IsTrue (upkeepCost >= 0F, "Upkeep cost can't be negative!");
 		Assert.IsTrue (operationalCost >= 0F, "Operational cost can't be negative!");
-		Assert.IsTrue (initialDollarsPerWattYear > 0F, "Profits per watt must be positive!");
 
 		Assert.IsTrue (wattsPerYear > 0F, "Watts produced must be positive!");
 		// no need to assert on the "continuous" value, it's a bool

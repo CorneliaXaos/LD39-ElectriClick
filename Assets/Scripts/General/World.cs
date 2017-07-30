@@ -22,6 +22,10 @@ public class World : MonoBehaviour
 		get { return inflationRate; }
 	}
 
+	public double CompetitionChargeRate {
+		get { return competitionChargeRate * InflationRate; }
+	}
+
 	public float CurrentTimeRaw { // this might not get used
 		get { return elapsedTime; }
 	}
@@ -41,32 +45,62 @@ public class World : MonoBehaviour
 
 	[Header ("Population")]
 	[SerializeField]
+	/// <summary>
+	/// The initial population.
+	/// </summary>
 	private long initialPopulation = 10000L;
-	// persons
 	[SerializeField]
+	/// <summary>
+	/// The population growth rate in percent.
+	/// </summary>
 	private float populationGrowthRate = 1.68F;
-	// in percent
 
 	[Header ("Energy Demand")]
 	[SerializeField]
+	/// <summary>
+	/// The initial demand per person. (Watts / person / year)
+	/// </summary>
 	private double initialDemandPerPerson = 0.015D;
-	// Watts / year
 	[SerializeField]
+	/// <summary>
+	/// The demand growth rate in percent.
+	/// </summary>
 	private float demandGrowthRate = 0.5F;
-	// in percent
 
 	[Header ("Economics")]
 	[SerializeField]
+	/// <summary>
+	/// The base inflation value.
+	/// Multiplied by dollars to determine differential over time.
+	/// </summary>
 	private float baseInflation = 1F;
-	// multiplier for values
 	[SerializeField]
+	/// <summary>
+	/// The inflation growth rate in percent.
+	/// </summary>
 	private float inflationGrowthRate = 1F;
-	// in percent
+	[SerializeField]
+	/// <summary>
+	/// The base energy costs.
+	/// Or.. how much does the competition charge on average.
+	/// </summary>
+	private float baseEnergyCosts = 25F;
+	[SerializeField]
+	/// <summary>
+	/// Energy Depreciation Rate, value is in percentage.
+	/// It's a "growth" rate.. but really it only mimics competition growth.  It fakes it
+	/// by decreasing how much energy costs are.  So.. if you play the game long enough
+	/// your energy is worth nothing as the value of energy depreciates over time.
+	/// </summary>
+	private float competitionGrowthRate = -5F;
 
 	[Header ("Timing")]
 	[SerializeField]
+	/// <summary>
+	/// The seconds per year.
+	/// i.e. how many seconds go by causes a change in "years"
+	/// </summary>
 	private float secondsPerYear = 5F;
-	// i.e. how many seconds go by causes a change in "years"
 
 	#endregion
 
@@ -75,6 +109,7 @@ public class World : MonoBehaviour
 	private double population;
 	private double currentDemand;
 	private double inflationRate;
+	private double competitionChargeRate;
 	private float elapsedTime;
 	private bool paused;
 
@@ -109,6 +144,7 @@ public class World : MonoBehaviour
 			population = Extrapolate (initialPopulation, populationGrowthRate / 100F);
 			currentDemand = Extrapolate (initialDemandPerPerson, demandGrowthRate / 100F);
 			inflationRate = Extrapolate (baseInflation, inflationGrowthRate / 100F);
+			competitionChargeRate = Extrapolate (baseEnergyCosts, competitionGrowthRate / 100F);
 		}
 	}
 
@@ -121,6 +157,7 @@ public class World : MonoBehaviour
 		population = initialPopulation;
 		currentDemand = initialDemandPerPerson;
 		inflationRate = baseInflation;
+		competitionChargeRate = baseEnergyCosts;
 
 		// un-needed.. but it makes me feel good to "initialize" everything
 		elapsedTime = 0.0F;
