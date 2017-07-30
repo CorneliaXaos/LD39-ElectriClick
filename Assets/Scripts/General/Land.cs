@@ -8,7 +8,7 @@ public class Land : MonoBehaviour
 
 	#region Constants
 
-	public static readonly int LAND_DIM = 3;
+	public static readonly int LAND_DIM = 2;
 
 	#endregion
 

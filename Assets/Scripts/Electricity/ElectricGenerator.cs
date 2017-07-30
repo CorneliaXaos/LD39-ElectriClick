@@ -9,8 +9,7 @@ public class ElectricGenerator : ScriptableObject
 
 	[Header ("Basic Properties")]
 	public string generatorName = "Electric Generator";
-	public Animation idleAnimation;
-	public Animation activeAnimation;
+	public RuntimeAnimatorController controller;
 	/// <summary>
 	/// The year available.  Available immeidately if 0.
 	/// </summary>
@@ -55,8 +54,7 @@ public class ElectricGenerator : ScriptableObject
 		// We'll validate some things here to make sure data is "correct"
 
 		Assert.AreNotEqual<string> (generatorName, "", "Name cannot be empty!");
-		Assert.IsNotNull (idleAnimation, "An idle animation is required!");
-		Assert.IsNotNull (activeAnimation, "An active animation is required!");
+		Assert.IsNotNull (controller, "An animation controller is required!");
 		Assert.IsTrue (yearAvailable >= 0F, "Year available must be greater than zero!");
 
 		Assert.IsTrue (baseCost > 0F, "Cost must be greater than zero!");

@@ -9,17 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 599b951743aae4b54ba4022e4932552d, type: 3}
-  m_Name: Test Generator
+  m_Name: Steam Engine
   m_EditorClassIdentifier: 
-  generatorName: Electric Generator
+  generatorName: Steam Engine
   idleAnimation: {fileID: 0}
   activeAnimation: {fileID: 0}
-  yearAvailable: 0
-  baseCost: 10
-  upkeepCost: 1
-  operationalCost: 0.25
-  initialDollarsPerWattYear: 25
-  wattsPerYear: 2
+  yearAvailable: 50
+  baseCost: 250
+  upkeepCost: 50
+  operationalCost: 2.5
+  wattsPerYear: 15
   continuous: 0
-  runtimePerClick: 1
-  maxRuntime: 30
+  runtimePerClick: 2
+  maxRuntime: 60
