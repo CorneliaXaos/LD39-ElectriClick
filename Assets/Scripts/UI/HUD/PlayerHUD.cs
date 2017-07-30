@@ -19,6 +19,9 @@ public class PlayerHUD : MonoBehaviour
 	[SerializeField]
 	private Text chargeRate;
 
+	[SerializeField]
+	private GameOverMenuController gameOverController;
+
 	[Header ("Gameplay")]
 	[SerializeField]
 	private Player player;
@@ -31,8 +34,13 @@ public class PlayerHUD : MonoBehaviour
 	{
 		float satisfaction = (float)((player.SatisfactionClamped + 1D) / 2D);
 		demandSatisfaction.SetProgress (satisfaction);
-		reputation.SetProgress ((player.Reputation + 1F) / 2F);
+
+		float repVal = (player.Reputation + 1F) / 2F;
+		reputation.SetProgress (repVal);
+		gameOverController.SetGameOver (repVal <= 0F);
+
 		finances.text = player.Finances.ToString ("C");
+
 		chargeRate.text = "Charge: " + player.DollarsPerWattYear.ToString ("C");
 	}
 

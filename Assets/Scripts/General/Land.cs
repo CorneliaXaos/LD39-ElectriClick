@@ -101,18 +101,20 @@ public class Land : MonoBehaviour
 
 	private void Update ()
 	{
-		// We need to "Tick" the things we're managing.. Namely, all the GeneratorInstances
-		foreach (GeneratorInstance instance in generators) {
-			if (instance == null)
-				continue;
-			instance.Tick (Time.deltaTime);
-		}
+		if (!world.Paused) {
+			// We need to "Tick" the things we're managing.. Namely, all the GeneratorInstances
+			foreach (GeneratorInstance instance in generators) {
+				if (instance == null)
+					continue;
+				instance.Tick (Time.deltaTime);
+			}
 
-		// We'll only update things once a year rather than every frame.
-		int currentYear = (int)(world.CurrentTimeYears);
-		if (currentYear > lastYear) {
-			lastYear = currentYear;
-			UpdateDisplay ();
+			// We'll only update things once a year rather than every frame.
+			int currentYear = (int)(world.CurrentTimeYears);
+			if (currentYear > lastYear) {
+				lastYear = currentYear;
+				UpdateDisplay ();
+			}
 		}
 	}
 

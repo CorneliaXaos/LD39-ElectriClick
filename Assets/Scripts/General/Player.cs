@@ -110,8 +110,10 @@ public class Player : MonoBehaviour
 
 	private void Update ()
 	{
-		CalculateGains (Time.deltaTime);
-		CalculateReputation (Time.deltaTime);
+		if (!world.Paused) {
+			CalculateGains (Time.deltaTime);
+			CalculateReputation (Time.deltaTime);
+		}
 	}
 
 	#endregion
@@ -240,9 +242,6 @@ public class Player : MonoBehaviour
 			reputation = 1F;
 		if (reputation <= -1F) {
 			reputation = -1F;
-			////
-			/// TODO:  FAIL STATE HERE.. GAME OVER SON..
-			/// 
 		}
 	}
 
