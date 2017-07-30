@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 	#region Constants
 
 	public static readonly float RANGE_HIGH = 1.25F;
-	public static readonly float RANGE_LOW = 0.25F;
+	public static readonly float RANGE_LOW = 0F;
 
 	#endregion
 
@@ -218,7 +218,7 @@ public class Player : MonoBehaviour
 
 		// Finally, we can add or subtract a bit of delta depending on where the player falls
 		if (reputation > expectedReputation) {
-			delta -= reputationDelta;
+			delta -= 2F * reputationDelta;
 		} else if (reputation < expectedReputation) {
 			delta += reputationDelta;
 		}
@@ -229,7 +229,7 @@ public class Player : MonoBehaviour
 		float populationModifier = ((reputation + 1F) / 2F);
 		double diff = CalculateSupply () - CalculateDemand () * populationModifier;
 		if (diff > 0D) {
-			delta += 2F * reputationDelta;
+			delta += reputationDelta;
 		} else if (diff < 0D) {
 			delta -= 2F * reputationDelta;
 		}

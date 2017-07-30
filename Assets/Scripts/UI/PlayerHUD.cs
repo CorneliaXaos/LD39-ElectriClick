@@ -16,6 +16,9 @@ public class PlayerHUD : MonoBehaviour
 	[SerializeField]
 	private Text finances;
 
+	[SerializeField]
+	private Text chargeRate;
+
 	[Header ("Gameplay")]
 	[SerializeField]
 	private Player player;
@@ -30,6 +33,21 @@ public class PlayerHUD : MonoBehaviour
 		demandSatisfaction.SetProgress (satisfaction);
 		reputation.SetProgress ((player.Reputation + 1F) / 2F);
 		finances.text = player.Finances.ToString ("C");
+		chargeRate.text = player.DollarsPerWattYear.ToString ("C");
+	}
+
+	#endregion
+
+	#region Public Methods
+
+	public void IncrementCharge ()
+	{
+		player.DollarsPerWattYear = player.DollarsPerWattYear + 1;
+	}
+
+	public void DecrementCharge ()
+	{
+		player.DollarsPerWattYear = player.DollarsPerWattYear - 1;
 	}
 
 	#endregion
