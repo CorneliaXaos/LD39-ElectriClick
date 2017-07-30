@@ -135,6 +135,7 @@ public class Player : MonoBehaviour
 
 	public void Reset ()
 	{
+		dollarsPerWattYear = initialDollarsPerWattYear;
 		finances = initialBank;
 		reputation = 0.95F;
 		yearCounter = 0;
@@ -218,10 +219,10 @@ public class Player : MonoBehaviour
 		// we should only consider population met by reputation, as the number of customers
 		// is directly related to reputation.
 		float populationModifier = ((reputation + 1F) / 2F);
-		float diff = CalculateSupply () - CalculateDemand () * populationModifier;
-		if (diff > 0F) {
+		double diff = CalculateSupply () - CalculateDemand () * populationModifier;
+		if (diff > 0D) {
 			delta += 2F * reputationDelta;
-		} else if (diff < 0F) {
+		} else if (diff < 0D) {
 			delta -= 2F * reputationDelta;
 		}
 
@@ -229,8 +230,8 @@ public class Player : MonoBehaviour
 		reputation += delta * elapsedTime;
 		if (reputation > 1F)
 			reputation = 1F;
-		if (reputation <= 0F) {
-			reputation = 0F;
+		if (reputation <= -1F) {
+			reputation = -1F;
 			////
 			/// TODO:  FAIL STATE HERE.. GAME OVER SON..
 			/// 
