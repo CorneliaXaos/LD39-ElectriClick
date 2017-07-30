@@ -332,7 +332,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 368324707}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 467914331}
+        m_MethodName: BuyLand
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &368324707
@@ -408,10 +419,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8c32be1686f134f0ca86e6aef30d8f04, type: 2}
   initialGenerators:
   - {fileID: 11400000, guid: 3c0468f5624a7431da453a9ea215ed27, type: 2}
+  - {fileID: 11400000, guid: 3c0468f5624a7431da453a9ea215ed27, type: 2}
   generatorDisplayPrefab: {fileID: 1768903620499436, guid: d07f5701b1c5547b6a0656865bc4ab63,
     type: 2}
-  baseLandCost: 10
-  initialLandSize: 2
+  baseLandCost: 2500
+  initialLandSize: 1
   landCostMultiplier: 1.5
   generatorSellRate: 65
   content: {fileID: 480784121}
@@ -429,14 +441,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialPopulation: 10000
-  populationGrowthRate: 1.68
-  initialDemandPerPerson: 0.015
+  populationGrowthRate: 5
+  initialDemandPerPerson: 0.005
   demandGrowthRate: 0.5
   baseInflation: 1
   inflationGrowthRate: 1
   baseEnergyCosts: 25
   competitionGrowthRate: -5
-  secondsPerYear: 5
+  secondsPerYear: 3
 --- !u!114 &467914333
 MonoBehaviour:
   m_ObjectHideFlags: 0

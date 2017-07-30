@@ -94,12 +94,17 @@ public class Land : MonoBehaviour
 		Assert.IsTrue (landCostMultiplier > 1F, "Land must become more expensive!");
 
 		Assert.IsNotNull (content, "Content object required for display prefabs.");
+
+		// Set Things Up
+		Reset ();
 	}
 
 	private void Update ()
 	{
 		// We need to "Tick" the things we're managing.. Namely, all the GeneratorInstances
 		foreach (GeneratorInstance instance in generators) {
+			if (instance == null)
+				continue;
 			instance.Tick (Time.deltaTime);
 		}
 
@@ -117,6 +122,10 @@ public class Land : MonoBehaviour
 
 	public void BuyLand ()
 	{
+		if (!player.MakePurchase (LandCost)) {
+			return;
+		}
+
 		landSize++;
 		// Populate additional lands with displays
 		for (int index = 0; index < LAND_DIM; index++) {
@@ -197,6 +206,7 @@ public class Land : MonoBehaviour
 		GeneratorDisplay display = displayObject.GetComponent<GeneratorDisplay> ();
 		displays.Add (display);
 		display.Bind (instance);
+		display.Initialize (this);
 	}
 
 	/// <summary>

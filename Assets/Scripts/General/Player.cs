@@ -36,11 +36,11 @@ public class Player : MonoBehaviour
 			double demand = CalculateDemand ();
 
 			if (supply > demand) {
-				return supply / demand;
+				return supply / demand - 1D;
 			} else if (supply == demand) {
-				return 0;
+				return 0D;
 			} else {
-				return -demand / supply;
+				return -demand / supply + 1D;
 			}
 		}
 	}
@@ -203,15 +203,18 @@ public class Player : MonoBehaviour
 		//// First, determine how user costs will affect reputation
 		// We need to convert the user's rate to a value within the differential
 		double ratio = DollarsPerWattYear / world.CompetitionChargeRate;
-		ratio -= (1D - competitionDifferential);
-		ratio /= 2D * competitionDifferential;
+		ratio -= (1D - competitionDifferential / 100F);
+		ratio /= 2D * competitionDifferential / 100F;
 		float clamped = 1F - Mathf.Clamp01 ((float)ratio);
 
 		// The ratio is now guaranteed to be in the range 0->1, i.e.
 		// if the player had costs set really below the competition, it should be 1
 		// if the player had costs set really above the competition, it should be 0
 		// we can now use this to determine what the player's expected reputation should be
-		float expectedReputation = Mathf.Lerp (RANGE_LOW, RANGE_HIGH, clamped);
+
+		// WHY DOES THIS NOT WORK.. IT ALWAYS RETURNS 0... wtf..
+		//float expectedReputation = Mathf.Lerp (RANGE_LOW, RANGE_HIGH, clamped);
+		float expectedReputation = (1 - clamped) * RANGE_LOW + clamped * RANGE_HIGH;
 
 		// Finally, we can add or subtract a bit of delta depending on where the player falls
 		if (reputation > expectedReputation) {

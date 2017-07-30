@@ -169,6 +169,7 @@ public class GeneratorDisplay : MonoBehaviour
 		} else {
 			queued += "" + ((int)instance.Runtime);
 		}
+		queuedTime.text = queued;
 	}
 
 	#endregion
