@@ -13,11 +13,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generatorName: Steam Engine
   controller: {fileID: 9100000, guid: 3b7861d96d059482d844c91738e7aa34, type: 2}
-  yearAvailable: 50
+  yearAvailable: 25
   baseCost: 250
   upkeepCost: 50
   operationalCost: 2.5
-  wattsPerYear: 15
+  wattsPerYear: 50
   continuous: 0
-  runtimePerClick: 2
-  maxRuntime: 60
+  runtimePerClick: 30
+  maxRuntime: 120

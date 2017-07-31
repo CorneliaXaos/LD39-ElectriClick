@@ -726,11 +726,11 @@ MonoBehaviour:
   initialPopulation: 10000
   populationGrowthRate: 5
   initialDemandPerPerson: 0.005
-  demandGrowthRate: 0.5
+  demandGrowthRate: 0.25
   baseInflation: 1
   inflationGrowthRate: 1
   baseEnergyCosts: 25
-  competitionGrowthRate: -5
+  competitionGrowthRate: -0.5
   secondsPerYear: 3
 --- !u!114 &467914333
 MonoBehaviour:
@@ -743,10 +743,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92b4a68d9b504c49bb1b4713b518e35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialBank: 10000
-  initialDollarsPerWattYear: 1
-  reputationDelta: 0.02
-  competitionDifferential: 15
+  initialBank: 5000
+  initialDollarsPerWattYear: 15
+  reputationDelta: 0.01
+  competitionDifferential: 25
   world: {fileID: 467914332}
   land: {fileID: 467914331}
 --- !u!4 &467914334

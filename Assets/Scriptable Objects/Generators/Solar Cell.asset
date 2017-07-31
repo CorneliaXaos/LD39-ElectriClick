@@ -13,11 +13,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generatorName: Solar Cell
   controller: {fileID: 9100000, guid: 3b7861d96d059482d844c91738e7aa34, type: 2}
-  yearAvailable: 125
+  yearAvailable: 100
   baseCost: 500
   upkeepCost: 25
   operationalCost: 0.25
-  wattsPerYear: 20
+  wattsPerYear: 3000
   continuous: 1
   runtimePerClick: 1
   maxRuntime: 30

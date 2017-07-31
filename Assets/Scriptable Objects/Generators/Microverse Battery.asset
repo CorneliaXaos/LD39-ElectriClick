@@ -13,11 +13,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generatorName: Microverse Battery
   controller: {fileID: 9100000, guid: 3b7861d96d059482d844c91738e7aa34, type: 2}
-  yearAvailable: 300
+  yearAvailable: 200
   baseCost: 2500
   upkeepCost: 200
   operationalCost: 25
-  wattsPerYear: 1500
+  wattsPerYear: 150000
   continuous: 1
   runtimePerClick: 1
   maxRuntime: 30

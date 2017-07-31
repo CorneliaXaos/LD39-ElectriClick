@@ -19,5 +19,5 @@ MonoBehaviour:
   operationalCost: 0.25
   wattsPerYear: 20
   continuous: 1
-  runtimePerClick: 1
-  maxRuntime: 30
+  runtimePerClick: 15
+  maxRuntime: 60

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generatorName: Fusion Reactor
   controller: {fileID: 9100000, guid: 3b7861d96d059482d844c91738e7aa34, type: 2}
-  yearAvailable: 250
+  yearAvailable: 150
   baseCost: 1500
   upkeepCost: 125
   operationalCost: 25
-  wattsPerYear: 500
+  wattsPerYear: 50000
   continuous: 0
-  runtimePerClick: 10
-  maxRuntime: 240
+  runtimePerClick: 150
+  maxRuntime: 600
